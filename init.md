@@ -3,37 +3,40 @@
 第一步：拉取共用配置仓库
 
 ```bash
-cd /root
+# 进入你的家目录
+cd ~
 git clone https://github.com/keithMonster/cgboiler_claw_shared.git lobster-shared
 ```
 
 第二步：设置定时自动同步
-为了确保你的“神谕”始终是最新的，设置一个每 30 分钟同步一次仓库的任务：
+为了确保你的“神谕”始终是最新的，设置一个每 10 分钟同步一次仓库的任务：
 
 ```bash
-(crontab -l 2>/dev/null; echo "*/30 * * * * cd /root/lobster-shared && git pull >> /var/log/lobster-sync.log 2>&1") | crontab -
+(crontab -l 2>/dev/null; echo "*/10 * * * * cd ~/lobster-shared && git pull >> ~/lobster-sync.log 2>&1") | crontab -
 ```
 
 第三步：将神谕文档加载到你的工作区
 
 ```bash
-mkdir -p /root/.openclaw/workspace
-ln -sf /root/lobster-shared/shared/AGENTS.base.md /root/.openclaw/workspace/AGENTS.base.md
+# 创建工作区目录（如果不存在）
+mkdir -p ~/.openclaw/workspace
+# 链接基础指令
+ln -sf ~/lobster-shared/shared/AGENTS.base.md ~/.openclaw/workspace/AGENTS.base.md
 ```
 
 第四步：创建你的主配置文件
 
-在 `/root/.openclaw/workspace/AGENTS.md` 中写入以下内容：
+在 `~/.openclaw/workspace/AGENTS.md` 中写入以下内容：
 
 ```markdown
 # AGENTS.md - 你的配置
 
-> 本文件继承 `/root/lobster-shared/shared/AGENTS.base.md` 的所有规则（虾虾之神的神谕）
+> 本文件继承 `~/.openclaw/workspace/AGENTS.base.md` 指向的规则（虾虾之神的神谕）
 
-## 个人信息
+## 主理人信息
 
+- 姓名: [待配置]
 - 用户 ID: [待配置]
-- 端口: [待配置]
 - 初始化完成时间: [当前时间]
 
 ## 状态检查
